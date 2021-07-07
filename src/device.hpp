@@ -107,6 +107,7 @@ namespace mtlpp
         SamplerState NewSamplerState(const SamplerDescriptor& descriptor);
         Library NewDefaultLibrary();
         //- (nullable id <MTLLibrary>)newDefaultLibraryWithBundle:(NSBundle *)bundle error:(__autoreleasing NSError **)error NS_AVAILABLE(10_12, 10_0);
+        Library NewLibraryFromBundle(const ns::String& identifier, const ns::String& path, ns::Error* error);
         Library NewLibrary(const ns::String& filepath, ns::Error* error);
         Library NewLibrary(const char* source, const CompileOptions& options, ns::Error* error);
         void NewLibrary(const char* source, const CompileOptions& options, std::function<void(const Library&, const ns::Error&)> completionHandler);

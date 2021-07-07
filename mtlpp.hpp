@@ -1183,6 +1183,7 @@ namespace mtlpp
         //- (nullable id <MTLLibrary>)newDefaultLibraryWithBundle:(NSBundle *)bundle error:(__autoreleasing NSError **)error NS_AVAILABLE(10_12, 10_0);
         Library NewLibrary(const ns::String& filepath, ns::Error* error);
         Library NewLibrary(const char* source, const CompileOptions& options, ns::Error* error);
+        Library NewLibraryFromBundle(const ns::String& identifier, const ns::String& path, ns::Error* error);
         void NewLibrary(const char* source, const CompileOptions& options, std::function<void(const Library&, const ns::Error&)> completionHandler);
         RenderPipelineState NewRenderPipelineState(const RenderPipelineDescriptor& descriptor, ns::Error* error);
         RenderPipelineState NewRenderPipelineState(const RenderPipelineDescriptor& descriptor, PipelineOption options, RenderPipelineReflection* outReflection, ns::Error* error);
