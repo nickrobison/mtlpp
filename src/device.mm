@@ -183,27 +183,21 @@ namespace mtlpp
 
     Library Device::NewLibraryFromBundle(const ns::String& identifier, const ns::String& path, ns::Error* error) {
         Validate();
-
-        const auto p2 = [[NSBundle bundleForClass:[(__bridge id<MTLDevice>)m_ptr class]]bundlePath];
-
         // Error
-        NSError* nsError = nullptr;
-        NSError** nsErrorPtr = error ? &nsError : nullptr;
+        NSError *nsError = nullptr;
+        NSError **nsErrorPtr = error ? &nsError : nullptr;
 
+        const auto bundle = [NSBundle bundleWithIdentifier:(__bridge NSString *) identifier.GetPtr()];
+        const auto rsc = [bundle pathForResource:(__bridge NSString *) path.GetPtr() ofType:@"metallib"];
 
-//        const auto bundle = [NSBundle bundleWithIdentifier:(__bridge NSString*)identifier.GetPtr()];
-//        const auto bundle = [NSBundle bundleWithIdentifier:@"com.nickrobison.proj4g"];
-        const auto bundle = [NSBundle mainBundle];
-        const auto rsc = [bundle pathForResource:(__bridge NSString*)path.GetPtr() ofType:@"metallib"];
-
-        id<MTLLibrary> library = [(__bridge id<MTLDevice>)m_ptr newLibraryWithFile:rsc error:nsErrorPtr];
+        id <MTLLibrary> library = [(__bridge id <MTLDevice>) m_ptr newLibraryWithFile:rsc error:nsErrorPtr];
 
         // Error update
-        if (error && nsError){
-            *error = ns::Handle{ (__bridge void*)nsError };
+        if (error && nsError) {
+            *error = ns::Handle{(__bridge void *) nsError};
         }
 
-        return ns::Handle{ (__bridge void*)library };
+        return ns::Handle{(__bridge void *) library};
     }
 
     Library Device::NewLibrary(const ns::String& filepath, ns::Error* error)
