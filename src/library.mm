@@ -322,8 +322,8 @@ namespace mtlpp
         Validate();
 #if MTLPP_IS_AVAILABLE(10_12, 10_0)
         // Error
-        NSError* nsError = NULL;
-        NSError** nsErrorPtr = error ? &nsError : nullptr;
+        NSError* __autoreleasing nsError = NULL;
+        NSError* __autoreleasing * nsErrorPtr = error ? &nsError : nullptr;
 
         id<MTLFunction> function = [(__bridge id<MTLLibrary>)m_ptr newFunctionWithName:(__bridge NSString*)functionName.GetPtr()
                                                                         constantValues:(__bridge MTLFunctionConstantValues*)constantValues.GetPtr()
